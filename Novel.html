@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYX</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffb74d;
+        }
+
+        #headtop a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: #333;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        nav a, .dropdown {
+            color: #ffb74d;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: medium;
+            position: relative;
+        }
+        nav a:hover, .dropdown:hover  {
+            text-decoration: underline;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            width: auto;
+            margin: 0 auto;
+            z-index: 1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dropdown-content a {
+            color: #ffb74d;
+            padding: 10px 16px; /* Adjusted padding */
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-radius: 8px;
+            line-height: 1.4; /* Adjusted line height */
+            font-size: medium;
+        }
+        .dropdown-content a:hover {
+            background-color: #727272;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 6px;
+            margin-right: 6px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 6px 10px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        aside, main {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+        aside {
+            flex: 1;
+        }
+
+        .titleColumn {
+            color: #ffcc80;
+            text-align: center;
+        }
+
+        main {
+            flex: 2;
+        }
+        article {
+            margin-bottom: 20px;
+        }
+        article h2 {
+            color: #ffcc80;
+        }
+        article p {
+            text-indent: 1.5em;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1f1f1f;
+            color: #b0b0b0;
+        }
+        /* New styles for writer section */
+        .writer-section {
+            display: flex;
+            align-items: center;
+            background: #333;
+            color: #ffb74d;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .writer-section img {
+            width: 100px; /* Adjust image width as needed */
+            height: 100px; /* Adjust image height as needed */
+            border-radius: 50%; /* Make the image round */
+            margin-right: 20px;
+        }
+        .writer-details {
+            flex: 1;
+        }
+        .writer-details h3 {
+            margin-top: 0;
+        }
+        .writer-details p {
+            margin-bottom: 10px;
+        }
+        .writer-section button {
+            padding: 10px 20px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                margin: 10px auto;
+            }
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            aside, main, .right {
+                margin: 10px;
+            }
+            .writer-section img {
+                width: 80px;
+                height: 80px;
+                margin-right: 10px;
+            }
+        }
+
+        .chapter {
+            text-align: center;
+        }
+
+        /* Style the dropdown to match the existing design */
+.select {
+    padding: 0 6px;
+    background-color: #3a3a3a;
+    color: #ffb74d;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: medium;
+}
+.select option {
+    background-color: #1e1e1e;
+    color: #ffb74d;
+    text-align: center;
+}
+
+/* New styles for feedback section */
+.feedback-section {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+}
+.feedback-section h2 {
+    color: #ffcc80;
+}
+.feedback-section label {
+    color: #ffb74d;
+}
+.feedback-section input, .feedback-section textarea, .feedback-section select, .feedback-section button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    box-sizing: border-box;
+}
+.feedback-section button {
+    background-color: #ffb74d;
+    color: #333;
+    cursor: pointer;
+}
+.feedback-section input, .feedback-section textarea, .feedback-section select {
+    background: #2c2c2c;
+    color: #ffb74d;
+}
+
+.chapter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.chapter-buttons button {
+    background-color: #ffb74d;
+    color: #333;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: medium;
+    transition: background-color 0.3s;
+}
+
+.chapter-buttons button:hover {
+    background-color: #ffcc80;
+}
+
+a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+    </style>
+    <script>
+        function jumpToChapter() {
+            var select = document.getElementById("chapter-select");
+            var chapter = select.value;
+            location.href = "#" + chapter;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1 id="headtop"><a href="Home.html">SKYX</a></h1>
+    </header>
+
+    <nav>
+        <div class="nav-left">
+            <table>
+                <tr>
+                    <td>
+                        <a href="Home.html">Home</a>
+                    </td>
+                    <td>
+                        <a href="Story.html">Stories</a>
+                    </td>
+                    <td>
+                        <a href="Music.html">Music</a>
+                    </td>
+                    <td>
+                        <a href="About Us.html">About Us</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </nav>
+    <div class="container">
+
+        <!-- CHAPTER SELECTION DROPDOWN -->
+
+        <main>
+            <article id="">
+                <div class="chapter">
+                    <div class="dropdown">
+                        <label for="chapter-select"><b><a href="Story.html">SAVIOR: A Change To The Galactic</a></b></label><br>
+                        <select id="chapter-select" class="select" onchange="jumpToChapter()">
+                            <option value="chapter1">CHOOSE CHAPTER</option>
+                            <option value="chapter1">CHAPTER 1</option>
+                            <option value="chapter2">CHAPTER 2</option>
+                            <option value="chapter3">CHAPTER 3</option>
+                            <option value="chapter4">CHAPTER 4</option>
+                            <option value="suzuki">CHAPTER : Suzuki Shisui</option>
+                            <option value="remy">CHAPTER : Remy Rozoa</option>
+                            <option value="valir">CHAPTER : Valir Vermilion</option>
+                            <option value="vinyl">CHAPTER : Vinyl</option>
+                        </select>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <!-- NOVEL CHAPTER STORIES -->
+
+        <main id="chapter1">
+            <article>
+                <h2 class="titleColumn">CHAPTER 1</h2>
+                <h3 style="text-align: center;">The Starting Journey</h3>
+                <p>
+Long ago, countless tribe beings across the galaxy coexisted in a fragile yet harmonious peace. They maintained a delicate relationship and peace between them, until this balance was abruptly shattered when one of the ancient beings The Emperor, driven by insatiable ambition and a thirst for power, launched a ruthless all-out attack to subjugate and destroy all other tribe beings. The ensuing galaxy-wide conflict, known as The Great Celestial War, ravaged star systems, shattered empires, and killed thousands of people, leaving devastation in its wake.
+
+<br><br>Thousands of millennia passed, and the Great Celestial War continued unabated, its scars etched deep into the fabric of the galaxy. This is a story about the empire that remained untouched by the Emperor's relentless all-out attack even amidst the relentless turmoil. Here, nestled in the peaceful embrace of their homeland, lived a boy named Suzuki Shisui with two younger brothers and a sickly mother, their humble abode a sanctuary from the storms raging beyond.
+
+<br><br>Unaware of the horrors unfolding beyond their borders, Shisui cherished moments of simple joy and wonder with his siblings, their days filled with laughter echoing through their small house. They found peace and happiness in each other's company, their bond a beacon of hope amidst the uncertainty that plagued their world. Yet, fate had woven a different path for them.
+
+<br><br>Inquisitive and filled with a thirst for knowledge, Shisui embarked on a journey of discovery that would unravel the dark secrets of their empire. Guided by whispers and half-truths, he delved deeper into the annals of his empire's history, with hidden archives revealing the empire's origins steeped in deception and conquest.
+
+<br><br>As he pieced together fragments of truth, Shisui's innocence gave way to a profound sense of responsibility. He wrestled with the weight of knowledge that threatened to shatter the fragile peace he had known, torn between loyalty to his empire and the moral imperative to confront the darkness festering within. With each revelation, he uncovered layers of corruption and manipulation that had been going on around the empire's foundations, casting doubt on its revered leaders and challenging the very essence of their rule.
+
+<br><br>With resolve burning in his heart, Shisui dedicated himself to rigorous study and relentless practice, driven by a single dream: to gain entry into the empire’s most prestigious institution, renowned for its unrivaled teachings in both arcane arts and combat prowess. In the quiet hours before dawn and long into the night, he pored over books and scrolls, absorbing every bit of knowledge he could. His days became full of intellectual pursuit and physical training, each moment focused on honing his skills in both magic and physical strength to a razor's edge.
+
+<br><br>His commitment did not go unnoticed. His teachers marveled at his relentless determination and innate talent. They pushed him to surpass his limits, guiding him through many rituals and refining his mastery of spells and techniques. Despite the hardships and sacrifices, Shisui persisted, driven by the vision of a better future for his family and his empire.
+
+<br><br>After a year of tireless study and practice, the day of The Admission Exam arrived. In the humble confines of his family's small home, surrounded by the love of his two younger brothers and his ailing mother, Shisui prepared with a mix of nerves and determination. Despite their poverty and lack of renown, he had risen to become the top student in his school, earning the title of "genius" among his peers for his unmatched aptitude in both magical theory and combat techniques.
+
+<br><br>As dawn broke over the horizon, casting its first light across the sky, Shisui stood before the gates, heart pounding with anticipation. Each step he took echoed with the weight of his dreams and the burden of his family's hopes resting upon his shoulders.
+
+<br><br>The Admission Exam was a series of difficult challenges that tested not only his intellectual knowledge but also his mastery of spells and physical combat abilities. Guided by mentors who recognized his potential, he navigated through the institution's halls and faced trials that pushed him to the very brink of his capabilities.
+
+<br><br>Yet, fueled by the memory of his mother's tender smile and the unwavering faith of his brothers, he persevered. With each obstacle surmounted and each puzzle unraveled, he drew closer to the realization of his destiny, to bring illumination and change to his empire that had been shrouded in shadows for so long.
+
+<br><br>As the sun dipped below the horizon and the ancient clocktower chimed its final toll, Shisui emerged from the institution's chambers, breathless but excited. His name echoed through the halls as word spread of his astounding performance. In that moment, even amidst the praise he received, Shisui was keenly aware of the whispers and disdain directed at him by those who viewed him as a mere outsider or nobody because he had no money, rank, or connections. But despite all this, he remained undeterred, driven by an inner fire that fueled his determination to prove his worth on his own terms. He knew that his journey had only just begun, a tale of courage, resilience, and the unyielding spirit of a hero destined to carve his mark upon history.
+
+<br><br>Finally, the instructor announced the results of the admission exam. Shisui passed with flying colors, securing second place with an amazing score. Everyone cheered for the top three, including him, and he couldn't wait to share the good news with his family. Excitement bubbled within him as he ran home, clutching the acceptance scrolls tightly.
+
+<br><br>But as he approached his house, his joy turned to dread at the sight of a medical vehicle and special magic investigators gathered outside. Fear gripped his heart, but he rushed to the door, desperate to understand what had happened. Inside, he found his two brothers in distress. His four-year-old brother was holding and hugging their six-month-old sibling tightly, both of them crying inconsolably. The middle brother was silently sobbing, trying to soothe the baby. When Shisui looked towards his brothers, he saw something that made his heart stop—his mother, lifeless on the floor, appearing as if she had been killed. He ran to his brothers, embracing them tightly as tears welled up in his eyes. 
+
+<br><br>"Why is this happening?" he thought, and then he overwhelmed by a mix of sorrow and disbelief then something deep within him stirred, and as he held his brothers, a surge of power he had never felt before coursed through him. His eyes turned red, blazing with a newfound intensity.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <main id="chapter2">
+            <article>
+                <h2 class="titleColumn">CHAPTER 2</h2>
+                <h3 style="text-align: center;">Take-Off in The Academy</h3>
+                <p>
+As dawn broke on the horizon, Suzuki stood before his mirror, straightening his uniform with a steady hand. Today marked the beginning of his journey at the most prestigious institution in the empire, a place renowned for its teachings, knowledge, and successful alumni. Unlike a typical student filled with excitement and wonder, Suzuki’s heart carried a weighty resolve. His mother's unjust death and the need to protect his younger brothers had imbued him with a sense of purpose far beyond the mere acquisition of knowledge. <br><br>
+
+Determined to keep his family together, Suzuki had insisted on securing special permission from the headmaster to have his younger brothers stay with him in his dormitory. He made it clear that he couldn't join the academy without them, refusing to leave his siblings behind. This condition, born of necessity and love, underscored his commitment to his family and his mission, setting the stage for the extraordinary journey ahead.<br><br>
+
+Suzuki’s first week at the academy was a whirlwind of new experiences and challenges. The weather mirrored his journey, shifting between rain and sunshine as he navigated the intricacies of his new life. On sunny days, he found solace studying under the grand oak trees in the courtyard, while rainy days drove him to the quiet corners of the library. <br><br>
+
+Each class brought its own unique challenges and rewards, from the precise art of healing to the intense demands of magic combat. Shisui often found himself lost in the vast ocean of knowledge, but he relished every moment, driven by his insatiable thirst for learning.<br><br>
+
+In the Healing class, Suzuki discovered the delicate balance between magical and natural remedies. His instructors were impressed by his quick grasp of complex healing spells, earning him nods of approval and quiet compliments. He would often study alone, pouring over ancient texts to perfect his techniques. Occasionally, he joined study groups, where he exchanged ideas and insights with his peers. Despite that, there were those who resented his abilities and background, and he found himself the target of subtle bullying. Suzuki chose to ignore their taunts, focusing instead on his goals and the encouragement from his genuine friends and supportive instructors.<br><br>
+
+Magic Combat class was a test of his physical and magical prowess. The rigorous training sessions pushed him to his limits, but he thrived under the pressure. His agility and strategic mind set him apart, earning him praise from his combat instructor. The intensity of the sword arts class further honed his skills, where the discipline of wielding a blade intertwined with his magical abilities. Every swing of his sword was a blend of strength and grace, and even the most seasoned students took note of his potential. Shisui's determination shone through, making it clear that he was not just a novice but a formidable warrior in the making.<br><br>
+
+Algebra and Magic Enchantments classes brought a different kind of challenge. The logical puzzles of algebra intrigued Suzuki, and he found himself drawn to the elegance of mathematical solutions. In the Magic Enchantments class, he marveled at the complexity of imbuing objects with magical properties. His instructor's admiration was evident as Suzuki quickly mastered the basics and began experimenting with more advanced enchantments. His peers often sought his help, recognizing his talent and keen understanding. These moments of collaboration fostered mutual respect and deepened his friendships, creating a supportive network within the academy.<br><br>
+
+Foreign Languages class opened up new worlds for Suzuki. Learning the languages of other tribes and races expanded his perspective and enriched his understanding of the galaxy's diverse cultures. He was particularly fascinated by the intricate scripts and unique phonetics, and his progress in the class earned him high praise from his language instructor. The bonds he formed with fellow students in this class were particularly strong, as they often practiced speaking in different languages outside of class, laughing at their mistakes and celebrating their improvements together.<br><br>
+
+At the end of his first week, Suzuki had encountered someone who has a figure of undeniable presence, despite his childlike features that his face, though youthful and seems calm but radiated the poise of a natural leader. Surrounded by a retinue of bodyguards that underscored his wealth and status, he carried a book perpetually in his hand, exuding an air of intellectual superiority and unwavering confidence. The aura he projected was unmistakable, an absolute declaration of dominance that silently screamed, "I AM THE KING." As the academy's prodigy and top one student, his presence commanded respect and awe from everyone around.<br><br>
+
+This student was clearly the strongest at the academy, their presence commanding respect and silence from everyone around. As Shisui observed them, a sense of suspense filled the air. Despite his appearance, with a clean, almost childlike face and a body that seemed unremarkable, their mana was so bright and calming yet undeniably powerful. The student's eyes locked onto Shisui's, a silent challenge passing between them. Shisui felt a surge of determination rise within him. He knew that this was the benchmark of strength he aspired to reach. The encounter left him with a mix of excitement and apprehension, marking a pivotal moment in his journey at the academy.<br><br>
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+        
+        <!-- FEEDBACK -->
+
+        <main>
+            <div class="feedback-section">
+                <h2>Feedback</h2>
+                <form id="feedback-form">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="name">Name:</label>
+                            </td>
+                            <td>
+                                <input type="text" id="name" name="name" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="comment">Comment:</label>
+                            </td>
+                            <td>
+                                <textarea id="comment" name="comment" rows="4" required></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="rating">Rating:</label>
+                            </td>
+                            <td>
+                                <select id="rating" name="rating" required>
+                                    <option value="5">5 stars</option>
+                                    <option value="4">4 stars</option>
+                                    <option value="3">3 stars</option>
+                                    <option value="2">2 stars</option>
+                                    <option value="1">1 star</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Fantasy Novel Blog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

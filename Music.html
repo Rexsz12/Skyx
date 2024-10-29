@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYX</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffb74d;
+        }
+
+        #headtop a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: #333;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        nav a, .dropdown {
+            color: #ffb74d;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: medium;
+            position: relative;
+        }
+        nav a:hover, .dropdown:hover  {
+            text-decoration: underline;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            width: auto;
+            margin: 0 auto;
+            z-index: 1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dropdown-content a {
+            color: #ffb74d;
+            padding: 10px 16px; /* Adjusted padding */
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-radius: 8px;
+            line-height: 1.4; /* Adjusted line height */
+            font-size: medium;
+        }
+        .dropdown-content a:hover {
+            background-color: #727272;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 6px;
+            margin-right: 6px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 6px 10px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        aside, main {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+        aside {
+            flex: 1;
+        }
+
+        .titleColumn {
+            color: #ffcc80;
+            text-align: center;
+        }
+
+        main {
+            flex: 2;
+        }
+        article {
+            margin-bottom: 20px;
+        }
+        article h2 {
+            color: #ffcc80;
+        }
+        article p {
+            text-indent: 1.5em;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1f1f1f;
+            color: #b0b0b0;
+        }
+        /* New styles for writer section */
+        .writer-section {
+            display: flex;
+            align-items: center;
+            background: #333;
+            color: #ffb74d;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .writer-section img {
+            width: 100px; /* Adjust image width as needed */
+            height: 100px; /* Adjust image height as needed */
+            border-radius: 50%; /* Make the image round */
+            margin-right: 20px;
+        }
+        .writer-details {
+            flex: 1;
+        }
+        .writer-details h3 {
+            margin-top: 0;
+        }
+        .writer-details p {
+            margin-bottom: 10px;
+        }
+        .writer-section button {
+            padding: 10px 20px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                margin: 10px auto;
+            }
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            aside, main, .right {
+                margin: 10px;
+            }
+            .writer-section img {
+                width: 80px;
+                height: 80px;
+                margin-right: 10px;
+            }
+        }
+
+        .chapter {
+            text-align: center;
+        }
+
+        /* Style the dropdown to match the existing design */
+.select {
+    padding: 0 6px;
+    background-color: #3a3a3a;
+    color: #ffb74d;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: medium;
+}
+.select option {
+    background-color: #1e1e1e;
+    color: #ffb74d;
+}
+
+/* New styles for feedback section */
+.feedback-section {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+}
+.feedback-section h2 {
+    color: #ffcc80;
+}
+.feedback-section label {
+    color: #ffb74d;
+}
+.feedback-section input, .feedback-section textarea, .feedback-section select, .feedback-section button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    box-sizing: border-box;
+}
+.feedback-section button {
+    background-color: #ffb74d;
+    color: #333;
+    cursor: pointer;
+}
+.feedback-section input, .feedback-section textarea, .feedback-section select {
+    background: #2c2c2c;
+    color: #ffb74d;
+}
+
+.chapter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.chapter-buttons button {
+    background-color: #ffb74d;
+    color: #333;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: medium;
+    transition: background-color 0.3s;
+}
+
+.chapter-buttons button:hover {
+    background-color: #ffcc80;
+}
+
+#chapter2 p,a {
+    text-decoration: none;
+    color: #ffcc80;
+    text-align: center;
+    margin: 0%;
+    margin-right: 5%;
+}
+
+#chapter2 {
+    padding-bottom: 0%;
+}
+
+    </style>
+    <script>
+        function jumpToChapter() {
+            var select = document.getElementById("chapter-select");
+            var chapter = select.value;
+            location.href = "#" + chapter;
+        }
+    </script>
+</head>
+<body>
+    
+    <header>
+        <h1 id="headtop"><a href="Home.html">SKYX</a></h1>
+    </header>
+
+    <nav>
+        <div class="nav-left">
+            <table>
+                <tr>
+                    <td>
+                        <a href="Home.html">Home</a>
+                    </td>
+                    <td>
+                        <a href="Story.html">Stories</a>
+                    </td>
+                    <td>
+                        <a href="Music.html">Music</a>
+                    </td>
+                    <td>
+                        <a href="About Us.html">About Us</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main id="chapter2">
+            <article>
+                <iframe width="100%" height="100%"
+                    src="https://www.youtube.com/embed/Js1U7iCV2kk" title="Echoes Of The Cosmic Rebellion (Lyric)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <p><a href="https://www.youtube.com/watch?v=Js1U7iCV2kk">Echoes Of The Cosmic Rebellion</a></p>
+            </article>
+        </main>
+
+        <main id="chapter2">
+            <article>
+                <iframe width="100%" height="100%"
+                    src="https://www.youtube.com/embed/wDAPVDEKt8Q" title="Rising Sovereign (Lyric)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <p><a href="https://www.youtube.com/watch?v=wDAPVDEKt8Q">Rising Sovereign</a></p>
+            </article>
+        </main>
+
+        <main id="chapter2">
+            <article>
+                <iframe width="100%" height="100%"
+                    src="https://www.youtube.com/embed/gPtMVw3uGWw" title="Born in Chains (Lyric)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <p><a href="https://www.youtube.com/watch?v=gPtMVw3uGWw">Born in Chains</a></p>
+            </article>
+        </main>
+
+        <main id="chapter2">
+            <article>
+                <iframe width="100%" height="100%"
+                    src="https://www.youtube.com/embed/ix_nJk9zV7A" title="King&#39;s Legacy (Lyric)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <p><a href="https://www.youtube.com/watch?v=ix_nJk9zV7A">King's Legacy</a></p>
+            </article>
+        </main>
+
+        <!-- FEEDBACK -->
+
+        <main>
+            <div class="feedback-section">
+                <h2>Feedback</h2>
+                <form id="feedback-form">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="name">Name:</label>
+                            </td>
+                            <td>
+                                <input type="text" id="name" name="name" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="comment">Comment:</label>
+                            </td>
+                            <td>
+                                <textarea id="comment" name="comment" rows="4" required></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="rating">Rating:</label>
+                            </td>
+                            <td>
+                                <select id="rating" name="rating" required>
+                                    <option value="5">5 stars</option>
+                                    <option value="4">4 stars</option>
+                                    <option value="3">3 stars</option>
+                                    <option value="2">2 stars</option>
+                                    <option value="1">1 star</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Fantasy Novel Blog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

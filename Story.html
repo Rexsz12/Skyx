@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYX</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffb74d;
+        }
+
+        #headtop a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: #333;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        nav a, .dropdown {
+            color: #ffb74d;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: medium;
+            position: relative;
+        }
+        nav a:hover, .dropdown:hover  {
+            text-decoration: underline;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            width: auto;
+            z-index: 1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dropdown-content a {
+            color: #ffb74d;
+            padding: 10px 16px; /* Adjusted padding */
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-radius: 8px;
+            line-height: 1.4; /* Adjusted line height */
+            font-size: medium;
+        }
+        .dropdown-content a:hover {
+            background-color: #727272;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 6px;
+            margin-right: 6px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 6px 10px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        aside, main {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+        aside {
+            flex: 1;
+        }
+
+        .titleColumn {
+            color: #ffcc80;
+            text-align: center;
+        }
+
+        main {
+            flex: 2;
+        }
+        article {
+            margin-bottom: 20px;
+        }
+        article h2 {
+            color: #ffcc80;
+        }
+        article p {
+            text-indent: 1.5em;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1f1f1f;
+            color: #b0b0b0;
+        }
+        /* New styles for writer section */
+        .writer-section {
+            display: flex;
+            align-items: center;
+            background: #333;
+            color: #ffb74d;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .writer-section img {
+            width: 100px; /* Adjust image width as needed */
+            height: 100px; /* Adjust image height as needed */
+            border-radius: 50%; /* Make the image round */
+            margin-right: 20px;
+        }
+        .writer-details {
+            flex: 1;
+        }
+        .writer-details h3 {
+            margin-top: 0;
+        }
+        .writer-details p {
+            margin-bottom: 10px;
+        }
+        .writer-section button {
+            padding: 10px 20px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                margin: 10px auto;
+            }
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            aside, main, .right {
+                margin: 10px;
+            }
+            .writer-section img {
+                width: 80px;
+                height: 80px;
+                margin-right: 10px;
+            }
+        }
+
+        button, button a {
+            background-color: #ffb74d;
+            color: black;
+            text-decoration: none;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1 id="headtop"><a href="Home.html">SKYX</a></h1>
+    </header>
+
+    <nav>
+        <div class="nav-left">
+            <table>
+                <tr>
+                    <td>
+                        <a href="Home.html">Home</a>
+                    </td>
+                    <td>
+                        <a href="Story.html">Stories</a>
+                    </td>
+                    <td>
+                        <a href="Music.html">Music</a>
+                    </td>
+                    <td>
+                        <a href="About Us.html">About Us</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <aside class="left">
+
+            <h3 style="color: #ffcc80; text-align: center;">SAVIOR : A Change To The Galactic</h3>
+
+            <div class="writer-section">
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="novel.jpeg">
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td>
+                                        <a href=""><h4 style="text-align: center;">NOVEL CHAPTERS</h4></a>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button>
+                                <a href="Novel.html">NOVEL CHAPTERS</a>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="writer-section">
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href=""><h4 style="text-align: center;">CHARA'S CHAPTERS</h4></a>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td>
+                                        <img src="chara.JPG">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button>
+                                <a href="Char.html">CHARACTERS CHAPTERS</a>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        &copy; 2024 Skyx Production. All rights reserved.
+    </footer>
+
+</body>
+</html>

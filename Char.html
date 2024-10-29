@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYX</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffb74d;
+        }
+
+        #headtop a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: #333;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        nav a, .dropdown {
+            color: #ffb74d;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: medium;
+            position: relative;
+        }
+        nav a:hover, .dropdown:hover  {
+            text-decoration: underline;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            width: auto;
+            margin: 0 auto;
+            z-index: 1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dropdown-content a {
+            color: #ffb74d;
+            padding: 10px 16px; /* Adjusted padding */
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-radius: 8px;
+            line-height: 1.4; /* Adjusted line height */
+            font-size: medium;
+        }
+        .dropdown-content a:hover {
+            background-color: #727272;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 6px;
+            margin-right: 6px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 6px 10px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        aside, main {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+        aside {
+            flex: 1;
+        }
+
+        .titleColumn {
+            color: #ffcc80;
+            text-align: center;
+        }
+
+        main {
+            flex: 2;
+        }
+        article {
+            margin-bottom: 20px;
+        }
+        article h2 {
+            color: #ffcc80;
+        }
+        article p {
+            text-indent: 1.5em;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1f1f1f;
+            color: #b0b0b0;
+        }
+        /* New styles for writer section */
+        .writer-section {
+            display: flex;
+            align-items: center;
+            background: #333;
+            color: #ffb74d;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .writer-section img {
+            width: 100px; /* Adjust image width as needed */
+            height: 100px; /* Adjust image height as needed */
+            border-radius: 50%; /* Make the image round */
+            margin-right: 20px;
+        }
+        .writer-details {
+            flex: 1;
+        }
+        .writer-details h3 {
+            margin-top: 0;
+        }
+        .writer-details p {
+            margin-bottom: 10px;
+        }
+        .writer-section button {
+            padding: 10px 20px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                margin: 10px auto;
+            }
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            aside, main, .right {
+                margin: 10px;
+            }
+            .writer-section img {
+                width: 80px;
+                height: 80px;
+                margin-right: 10px;
+            }
+        }
+
+        .chapter {
+            text-align: center;
+        }
+
+        /* Style the dropdown to match the existing design */
+.select {
+    padding: 0 6px;
+    background-color: #3a3a3a;
+    color: #ffb74d;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: medium;
+}
+.select option {
+    background-color: #1e1e1e;
+    color: #ffb74d;
+    text-align: center;
+}
+
+/* New styles for feedback section */
+.feedback-section {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+}
+.feedback-section h2 {
+    color: #ffcc80;
+}
+.feedback-section label {
+    color: #ffb74d;
+}
+.feedback-section input, .feedback-section textarea, .feedback-section select, .feedback-section button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    box-sizing: border-box;
+}
+.feedback-section button {
+    background-color: #ffb74d;
+    color: #333;
+    cursor: pointer;
+}
+.feedback-section input, .feedback-section textarea, .feedback-section select {
+    background: #2c2c2c;
+    color: #ffb74d;
+}
+
+.chapter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.chapter-buttons button {
+    background-color: #ffb74d;
+    color: #333;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: medium;
+    transition: background-color 0.3s;
+}
+
+.chapter-buttons button:hover {
+    background-color: #ffcc80;
+}
+
+a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+    </style>
+    <script>
+        function jumpToChapter() {
+            var select = document.getElementById("chapter-select");
+            var chapter = select.value;
+            location.href = "#" + chapter;
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1 id="headtop"><a href="Home.html">SKYX</a></h1>
+    </header>
+
+    <nav>
+        <div class="nav-left">
+            <table>
+                <tr>
+                    <td>
+                        <a href="Home.html">Home</a>
+                    </td>
+                    <td>
+                        <a href="Story.html">Stories</a>
+                    </td>
+                    <td>
+                        <a href="Music.html">Music</a>
+                    </td>
+                    <td>
+                        <a href="About Us.html">About Us</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- CHAPTER SELECTION DROPDOWN -->
+
+        <main>
+            <article id="">
+                <div class="chapter">
+                    <div class="dropdown">
+                        <label for="chapter-select"><b><a href="Story.html">SAVIOR: A Change To The Galactic</a></b></label><br>
+                        <select id="chapter-select" class="select" onchange="jumpToChapter()">
+                            <option value="suzuki">CHOOSE CHARACTER</option>
+                            <option value="suzuki">Suzuki Shisui</option>
+                            <option value="remy">Remy Rozoa</option>
+                            <option value="valir">Valir Vermilion</option>
+                            <option value="vinyl">Vinyl</option>
+                            <option value="fanz">Fanz Shisui</option>
+                            <option value="mran">Mran Alex</option>
+                            <option value="rell">Rell</option>
+                            <option value="syah">Syah</option>
+                            <option value="isha">Isha Jiro</option>
+                        </select>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <!-- CHARACTER'S BACKGROUND STORIES-->
+
+        <main id="suzuki">
+            <article>
+                <h2 class="titleColumn">SUZUKI SHISUI</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <main id="remy">
+            <article>
+                <h2 class="titleColumn">REMY ROZOA</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    Born into opulence, the young prince had everything at his fingertips: wealth, unrivaled mastery of magic, sharp intellect, powerful connections, and a status many envied. He was the second son, yet he bore the title of crown prince—a position wrested not through inheritance but by sheer will, skill, and the respect he commanded, surpassing his elder brother in every domain.
+
+                    <br><br> Despite the privilege of his birth, his heart remained untarnished. Unlike his family, who viewed the kingdom’s citizens as mere tools to bolster their own riches, the young prince was guided by a deep-seated sense of justice. While the royal family imposed unjust laws, seeking only to see the people bow and suffer under the weight of their greed, he devoted himself to an ideal he believed in with all his heart: the welfare of the people. He knew the kingdom’s strength was rooted in its people, and he vowed to protect them, no matter the cost.
+
+                    <br><br> His ascent to crown prince was only the beginning. With newfound authority, he repealed some of the kingdom’s most oppressive laws, igniting a spark of hope among the people. Yet, he quickly realized that even his position was insufficient to shatter the deeply embedded corruption festering within the court. When his efforts to transform the system peacefully reached their limit, he made a heartbreaking decision: he would have to bring down his own family to free the kingdom from tyranny.
+
+                    <br><br> With a heavy heart, he rallied an army not of soldiers alone but of citizens from all walks of life who shared his vision of a fair and just kingdom. Together, they advanced toward the castle, a fortress that had for too long cast its dark shadow over their lives. As the prince led the charge, sword glinting in hand, his eyes were fixed on the towering gates before him, yet his mind weighed heavy with the knowledge of what lay ahead. The guards at the castle doors were well-trained, fierce, and loyal only to the corrupt king, each of them prepared to lay down their life to uphold a regime of oppression.
+
+                    <br><br> As they breached the entrance, wave upon wave of defenders confronted them. The prince fought with a relentless fury, each strike precise and calculated, yet there was no malice in his heart—only a deep sense of duty. His magic surged through him, lighting the dim corridors with fierce energy as he carved a path forward. He parried and struck, twisting through his opponents with almost inhuman speed. The loyal guards cried out as they fell, their numbers dwindling as he and his followers surged forward, each step taking them deeper into the heart of the castle.
+
+                    <br><br> As they pressed on, memories of his youth flickered through his mind—the quiet halls where he once wandered, now filled with the sounds of clashing steel and the cries of the fallen. His comrades, inspired by his resolve, fought with unparalleled courage, overcoming soldiers of higher rank and greater training because they fought for something far stronger than obedience—they fought for justice. The prince’s heart ached with each blow, for he knew that the blood spilled here was a consequence of the darkness his family had cast over the kingdom. Yet he pressed on, fighting through pain, fatigue, and the ghosts of what this place had once meant to him.
+
+                    <br><br> Finally, with the last guard defeated, he reached the grand doors of the throne room. Pausing for a moment to steady himself, he pushed them open and stepped forward, ready to face the final, tragic act of his rebellion.
+
+                    <br><br> At the end of this tragic journey, he found himself face-to-face with his father and mother, once mighty figures now reduced to fear-stricken shadows of themselves. Their parting words pierced his heart: “We should never have brought you into this world.” He did not flinch. His eyes, unyielding as iron, met theirs as he whispered, “Thank you for sparing me. I will see you on the other side.” With a final, swift stroke, he ended their reign, his hands stained with the blood of his own kin. Though he knew he had freed his people, he would carry this weight forever.
+
+                    <br><br> Standing on the balcony, covered in the remnants of his battle, he declared, “The tyranny has ended. A new era begins. I vow, as your king, that history will not repeat itself. Seek me when you need strength; I am your sword and shield.” The people hailed him as a hero, but he himself felt no glory—only a quiet resolve to live out his days as the servant of his people. For he did not see himself as a hero, nor did he wish to; he had simply done what had to be done.
+
+                    <br><br> Thus began the reign of a king forged by tragedy and bound by an unbreakable promise to his people.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <main id="valir">
+            <article>
+                <h2 class="titleColumn">VALIR VERMILION</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    He was born with nothing—a simple commoner, an ordinary boy from a village under the shadow of a corrupt and merciless regime. From a young age, he watched helplessly as the people around him suffered under the crushing weight of unjust laws imposed by the royal family, a ruling elite consumed by greed. He saw families starve, friends driven to despair, and neighbors so broken that some chose death over a life of endless oppression. Though he had no special status or privilege, he felt a fire within him—a fierce determination to protect those he loved and challenge the chains of tyranny.
+
+                    <br><br> As he grew, his resolve only deepened. He knew he was just one man, but he was determined to make a difference. Gathering a small group of like-minded souls, he founded an underground movement dedicated to justice. Known as the “Shadows,” they became protectors of the people, fighting from the darkness against the light of corruption. To the people, they were heroes; to the nobility, they were a threat.
+
+                    <br><br> From the shadows, he led his band of rebels, men and women who had lived lives hardened by loss, bound together by a shared purpose: to protect those too weak to fight back and to strike at the heart of corruption. They operated in secrecy, slipping through the night like phantoms, their only mark the lingering scent of burnt insignias, singed banners, and emptied vaults. The Shadows became legends among the people, known for their courage and their unyielding defiance. Though they had no riches, no formal training, their weapons were forged from stolen steel, their skills honed through necessity and endless struggle. With every raid, they became bolder, learning to navigate the hidden passageways of noble estates, to silence guards with a single blow, and to vanish without a trace when dawn broke.
+
+                    <br><br> They struck wherever corruption took root—pilfering gold hoarded by greedy nobles, tearing down statues erected to false gods of power, even sabotaging royal convoys that transported food and supplies meant for lavish feasts in the palace while the villages starved. Each mission carried its own danger, but they lived by a simple creed: better to die with honor than live under tyranny. They knew that every step they took might lead to their own undoing, yet they pressed forward, driven by a fierce love for their people and an unshakable determination to end the suffering. But their path was not without loss; friends fell, lives were sacrificed, and their ranks thinned over time. Yet those who survived fought on, for each loss only stoked the fire within them. They became a family bound by purpose, led by him who knew no quit, who, despite his common birth, had become a symbol of hope.
+
+                    <br><br> Then, one night, word came of a prince—a prince who, unlike the rulers before him, had vowed to bring down his own family’s reign of terror. Suspicious but curious, he sought the prince out, expecting only arrogance or deceit. But in the prince’s eyes, he saw a rare fire, a resolve that mirrored his own. After much wariness and guarded exchanges, they formed an alliance, their goals aligned, if only for the time being. Together, they strategized, blending the Shadows’s expertise with the prince’s understanding of the castle’s inner workings and its many defenses. With the prince’s authority and insider knowledge, they were able to infiltrate places that had once been untouchable, striking down pockets of corruption that would have otherwise eluded them.
+
+                    <br><br> The day of the final assault arrived, and side by side, he and the prince led their combined forces through the castle’s gates, fighting together as comrades in arms. As they tore through the ranks of palace guards, the prince wielded his sword with unyielding precision, while he and the Shadows moved like shadows themselves, dismantling any defenses in their path. Together, they fought through halls stained with the sins of the past, their battle cries echoing through the stone corridors. Their alliance was a powerful fusion of darkness and light, strategy and passion, strength and stealth. The prince’s magic cast blazing trails through their enemies, illuminating the path ahead, while he and his fighters darted forward, seizing openings and taking down guards with silent efficiency.
+
+                    <br><br> As they fought toward the throne room, they came upon an elite force of royal guards, each trained to defend the king with their lives. It was a brutal clash, a test of strength, endurance, and will. Blood and sweat blurred his vision, but he fought on, striking down each foe who dared stand in their way. In the heat of battle, he glimpsed the prince, his face set in grim determination, his blade cutting down foes with a righteous fury. For the first time, he allowed himself to hope that this alliance might indeed succeed, that the kingdom’s suffering might finally end. And with that hope burning in his chest, he fought with renewed vigor, striking down the final obstacles until, at last, they reached the doors to the throne room.
+
+                    <br><br> Standing together, breathing heavily but resolute, they shared a final look of understanding and mutual respect. The prince would confront his family, and he would bear witness to the moment that would shape their kingdom’s future. The time of darkness had ended, but he knew the prince’s path would be fraught with the same hardship he had endured. So, as the prince stepped forward to confront his parents, he left him with a warning—a reminder that the kingdom was nothing without its people, that any ruler who forgot this would eventually face a reckoning. The prince met his gaze, a flicker of sorrow and determination in his eyes, and replied with a quiet vow, “You’re right. That’s why I will protect them, no matter the cost.”
+
+                    <br><br> And in that moment, he saw something that he had thought lost—a glimmer of hope, not just for himself, but for the kingdom he had given everything to protect. The Shadows had played their part; the prince had taken up the mantle. At last, he could lay down his sword, trusting that the dawn of a new era would bring the justice they had fought so long to secure.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <main id="vinyl">
+            <article>
+                <h2 class="titleColumn">VINYL</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    From the moment he drew his first breath, his fate was entwined with shadows, suffocating under the weight of darkness. Born into a world ruled by malevolence, he was raised within the cold, unforgiving walls of a castle that reeked of corruption. The royal family recognized a flicker of potential in him, a latent power they could manipulate to strengthen their iron grip on the kingdom. Instead of nurturing his spirit, they forged him into a weapon, systematically stripping away his innocence and childhood, replacing laughter with the chilling echoes of despair. Each day bore down upon his fragile soul, an oppressive burden that rendered hope a distant memory.
+
+                    <br><br> As a child, he learned to see the world through a veil of cruelty, where compassion was branded as weakness and mercy was a faraway dream. His trainers instilled in him a brutal philosophy, their harsh lessons reinforced by the suffering of the commoners around him—people whose lives had been ravaged by the oppressive regime he was coerced to uphold. They filled his mind with deceit, convincing him that his worth lay solely in his capacity to kill, that strength was derived from dominance rather than empathy. Each command he followed was like a noose tightening around his neck, deepening the shackles of his servitude. He became a puppet, forced to dance to the whims of tyrants, executing their will without question—killing those labeled as enemies of the crown. The haunting cries of his victims echoed relentlessly in his mind, a chorus of anguish that tormented him long after the bloodshed had ceased.
+
+                    <br><br> With each mission, he felt his humanity erode, the essence of who he was slipping away, leaving behind a hollow shell burdened by regret. He was dispatched to hunt down dissenters, to snuff out the flickering flames of rebellion, and the weight of their deaths became a suffocating shroud. He fought not for honor or glory but as a tool to uphold the very tyranny that crushed the spirit of the land. The darkness enveloped him, its tendrils seeping into his core, molding him into the monster he had been conditioned to fight. Every life extinguished was a painful reminder of the boy he once was—a boy who dared to dream of freedom, now lost to an unending cycle of violence.
+
+                    <br><br> In the chaos, he constructed a façade—a mask of indifference that concealed his inner turmoil. Dubbed the Reaper of the Shadows, he became a figure feared by many, yet he was a prisoner of his own making, shackled by the very skills that had been honed to perfection through years of indoctrination. With each mission, he was drawn deeper into the abyss of despair, battling foes who were often as innocent as he had once been. Beneath the ruthless exterior, his heart ached for solace—a longing for a life unmarred by the brutal hand of fate. In fleeting moments of quiet reflection, he envisioned a world unshackled from tyranny, a sanctuary where laughter thrived and hope blossomed. The painful realization dawned upon him: to truly be free, he would have to rise against those who had forged him into their instrument of death.
+
+                    <br><br> Yet, as he stood on the precipice of transformation, he was haunted by the specters of those he had wronged. Each face, a ghostly reminder of a life cut short, lingered in the depths of his consciousness, demanding atonement. The weight of his choices loomed like an oppressive storm cloud, threatening to burst and drown him in a sea of sorrow. Could he truly reclaim his soul after becoming a vessel of death? The question gnawed at his spirit, intertwining with his resolve and leaving him feeling increasingly fragile. But even within the depths of his despair, a flicker of rebellion ignited within his heart, stirring the ashes of a once-bright dream—a dream that whispered of hope, redemption, and a chance to reclaim his lost humanity. He envisioned a world unshackled by tyranny, a place where laughter could flourish and hope could breathe. The realization struck him: to be free, he had to turn against his masters.
+
+                    <br><br> A flicker of rebellion began to ignite in his heart, stirring the ashes of a once-vibrant dream—a dream that whispered of hope, of redemption, and of freedom.
+
+                    <br><br> Thus, he resolved to break free from the chains of his existence. The day came when he transformed from puppet to warrior, defying those who had once commanded him. He faced them with a newfound strength, the clarity of purpose igniting a fire within him. The battles that followed were fierce and unforgiving, each clash a step toward reclaiming his identity. With each victory, he severed the strings that bound him to the royal family. He fought not just for himself but for every soul crushed under the weight of tyranny, his heart pounding with the rhythm of freedom.
+
+                    <br><br> Now, though he had achieved his goal, the victory felt bittersweet. The battlefield, once filled with the promise of liberation, was stained with the remnants of lost lives. He stood among the fallen, victorious yet hollow, carrying the burden of every death he had caused. Freedom had come, but at the cost of his innocence. Each step forward was a reminder of the boy he once was, now replaced by a warrior steeped in sorrow.
+
+                    <br><br> As he gazed into the horizon, he understood that the path ahead was not merely one of survival; it was a path to redemption. Though he fought for peace, the scars of his past would forever haunt him. He had learned to wield his pain as a weapon against the darkness, becoming a guardian for those who could not protect themselves. The journey of the boy turned warrior had only just begun, and he vowed to find a way to transform his sorrow into strength, fighting not just for survival, but for a brighter tomorrow.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <!-- MAIN CHARACTER'S BACKGROUND STORIES -->
+
+        <main id="fanz">
+            <article>
+                <h2 class="titleColumn">FANZ SHISUI</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <main id="mran">
+            <article>
+                <h2 class="titleColumn">MRAN ALEX</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    In a realm where noble blood was revered and their lineage steeped in tradition, he was born into one of the most esteemed families in the kingdom. The name of his family resonated with respect and admiration, known far and wide as brilliant strategists and tacticians. Their ability to orchestrate intricate plans and foresee the tides of battle had earned them a place of power among the ruling elite. People looked up to them, marveling at their intellect and cunning, attributing the family’s success to a legacy of unparalleled wisdom and foresight.
+
+                    <br> <br> The grand estate where he grew up stood as a testament to their nobility, adorned with opulent furnishings and a vast library filled with tomes on warfare, philosophy, and statecraft. Yet, for him, this gilded existence was fraught with unrelenting pressure. His family’s reputation hung like a heavy weight upon his shoulders, compelling him to excel in all aspects of life. From an early age, he was immersed in the rigorous study of military strategy, drilled to perfection by tutors who demanded nothing less than excellence.
+
+                    <br> <br> While the outside world admired his family’s accomplishments, he experienced a vastly different reality. Behind the grand façade lay a life of constant scrutiny and harsh discipline. His father, a formidable figure, epitomized the family’s high expectations. Any sign of imperfection, any miscalculation, was met with severe punishment, often leaving him bruised and broken. Each beating felt like a blow not just to his body, but to his spirit. He was trapped in a cycle of fear and obedience, striving to meet his father’s relentless demands while grappling with the gnawing desire for freedom.
+
+                    <br> <br> Though he excelled in his studies, mastering tactics and strategies, the relentless push to be better transformed into a burden that he could scarcely bear. His nights were filled with sleepless hours spent poring over maps and battle plans, desperate to impress a father who seemed impossible to please. The world outside his family’s walls remained oblivious to his suffering; they only saw the polished exterior, the boy destined for greatness. Little did they know of the turmoil raging within him, of the dreams stifled beneath the weight of expectations and fear.
+
+                    <br> <br> Years of relentless training and heart-wrenching discipline had worn him down to the point of despair. The heavy expectations of his noble family hung like a noose around his neck, and he often found himself teetering on the edge of giving up. He longed for a sense of freedom, for a life unburdened by the weight of his lineage, but the fear of failure drove him onward, despite the emotional and physical toll it took on him.
+
+                    <br> <br> It was during one of his rare visits to the capital’s vast library, a sanctuary of knowledge amidst the chaos of his life, that everything changed. As he wandered through the towering shelves, the scent of old parchment filling his lungs, he noticed a boy seated at a wooden table. The boy was deeply engrossed in his studies, surrounded by a multitude of books. He scribbled notes fervently, his brow furrowed in concentration, yet there was a hint of struggle in his demeanor.
+
+                    <br> <br> Curiosity piqued, he approached the boy, who appeared to be grappling with the complexity of the texts before him. “Why do you work so hard to take notes?” he asked, his voice laced with genuine interest. The boy looked up, surprise flickering across his face before he broke into a soft laugh. “Well, I’m weak, and I’m trying to become strong,” he admitted, glancing down at the pages with a frown. “But I don’t understand any of this!”
+
+                    <br> <br> A sense of empathy washed over him as he sat down beside the boy. “I can help you with that,” he offered, a spark of hope igniting within him. Over the next hour, they engaged in a spirited exchange, unraveling the mysteries of the books together. With each explanation, the boy’s eyes brightened, and he began to grasp the concepts that had once eluded him. When they finished, the boy beamed, “You’re really smart! Thank you!”
+
+                    <br> <br> Then he asked the boy “Do you ever wonder if all this knowledge is worth the trouble we go through to acquire it?” he asked, his tone taking on a somber note. Intrigued, the boy leaned in closer, eager to hear his story. With a sad undertone, he shared a glimpse of his life—how he had endured relentless pressure and punishment from his father, feeling like a mere tool rather than a beloved son.
+
+                    <br> <br> “Isn’t it nice to be praised for being smart?” the boy remarked softly. “But I too don’t like punishment. You just need to do it right. After all, you’re smart, and that means your father expects something good from you—not that you’re useless.”
+
+                    <br> <br> For a moment, he could see the pain flickering in the boy’s eyes, sensing that he too had been called names, that he carried scars of his own. “What do you mean?” he asked gently, prompting the boy to open up. “Not like you,” the boy replied, his voice barely above a whisper. “I’m always called useless and talentless. I’ll never become strong.” Then, with a flicker of resilience, he added, “But you know what? It all ends when you give up on yourself. You have strength, skill, and talent—why stop now when you can go higher?”
+
+                    <br> <br> As the boy’s words echoed in his mind, a renewed sense of purpose surged within him. He smiled, appreciating the unexpected wisdom from a stranger. “I need to go now,” the boy said, rising from his seat. “See you again!” With that, he departed, leaving behind a lingering warmth in the air.
+
+                    <br> <br> In that moment, a pivotal realization struck him. He would not give up. He would endure whatever trials awaited him and strive to earn his father’s acknowledgment. He would absorb every lesson from his father, not just for himself but to help that boy as well. The meeting had rekindled the spark of hope within him, a beacon guiding him through the shadows of doubt. He resolved to channel his pain into determination, aspiring to become more than just a reflection of his family’s legacy—he would become the architect of his own destiny.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+        
+        <main id="rell">
+            <article>
+                <h2 class="titleColumn">RELL</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    Born into a family trapped in the grip of poverty, he spent his early years in a dilapidated shack at the edge of a bustling town. His parents, loving yet hopeless, worked tirelessly but could barely scrape together enough to keep food on the table. The weight of their crushing debt loomed over them like a dark cloud, casting shadows on what little joy they could find in life. Each day was a battle against hunger, desperation, and the looming threat of the creditors who sought their pound of flesh.
+
+                    <br> <br> Tragedy struck when a fever swept through their home, claiming the lives of both his parents. Left alone and vulnerable, he quickly became a target for the merciless debt collector who had long pursued his family. Without hesitation, the collector seized the opportunity to sell him into servitude, a fate he could not accept. With nothing but the clothes on his back and the fire of survival ignited in his heart, he fled into the night, leaving behind the ghosts of his parents and the remnants of his former life.
+
+                    <br> <br> Wandering through the dark streets, he felt the cold grip of loneliness tighten around him. The world was a dangerous place, and survival demanded more than just luck. Desperation fueled his determination to adapt. He quickly learned that strength alone would not keep him alive; he needed skill. In the shadows of the town, he found himself drawn to daggers—small, swift, and deadly weapons that fit comfortably in his hands. He began to train himself, practicing in the cover of night when the streets were quiet and the dangers of the day had faded.
+
+                    <br> <br> Each evening, he would sneak into abandoned buildings or dark alleyways to refine his technique. The repetition of throwing, catching, and wielding the daggers became a meditation for him. He focused on his agility and precision, pushing his limits until every movement felt like second nature. As days turned into weeks, he honed his skills to the point where he could strike with the swiftness of a shadow, mastering the art of ambush and evasion. The daggers transformed from mere tools of survival into extensions of his will, embodying his determination to reclaim control over his life.
+
+                    <br> <br> During one of his late-night practice sessions, as he was honing his skills near a marketplace, he spotted a boy playing around under the moonlight. The boy was carefree, darting between shadows with a playful energy that seemed foreign to him. Suddenly, the boy slipped on a loose rock and fell to the ground, but instead of crying, he erupted into laughter. “Ha! That was hilarious!” he exclaimed, lying back on the grass, arms outstretched as if to embrace the stars above.
+
+                    <br> <br> Amused by the boy’s resilience, he approached cautiously. The boy, still giggling, leaned back on the grass and gazed up at the night sky, his fingers dancing through the air as if trying to touch the stars. “Look at them! Aren’t they beautiful?” he said, his laughter filling the night air. The sheer joy in the boy’s demeanor was infectious, stirring something deep within him—a flicker of hope he thought was long extinguished.
+
+                    <br> <br> Intrigued, he sat beside the boy, who continued to point out constellations, sharing stories of heroes and legends woven among the stars. As they exchanged words, he felt a connection forming—one born not of struggle but of friendship. The boy’s carefree spirit contrasted sharply with his own heavy burdens, offering a glimpse into a life filled with laughter rather than sorrow.
+
+                    <br> <br> The more they talked, the more he realized that this boy represented everything he had lost: innocence, joy, and the possibility of a brighter future. The boy’s laughter echoed in his mind, a reminder that life could be more than just survival. With every shared story, a bond began to form, turning his once-lonely nights into something vibrant and full of promise.
+
+                    <br> <br> As they lay on the grass, the boy turned to him and said, “You know, no matter what life has done to you, we can still smile and laugh it off. Why do we need to be unhappy if life has so many nice things?” He pointed toward the stars shimmering above, their light casting a gentle glow on their faces. In that moment, he felt a warmth spreading through him—a realization that happiness could be reclaimed, and hope could still flourish even in the darkest of times.
+
+                    <br> <br> Inspired by the boy’s unwavering spirit, he felt the weight of his past begin to lift. The darkness that had consumed him for so long started to recede, replaced by the flickering light of possibility. It was time to abandon the life of survival defined by desperation and deceit. The boy’s infectious laughter rang in his ears, urging him to consider a different path—one paved with friendship, joy, and the pursuit of something greater than himself.
+
+                    <br> <br> With newfound determination, he turned to the boy, his heart swelling with conviction. “You’re right. I don’t want to live in darkness anymore. I want to change my life, to follow a path where I can help others and find joy in the world around me.” The boy beamed at him, and in that moment, he felt a sense of belonging he had long forgotten. Together, they would explore the beauty of life, hand in hand, leaving behind the shadows that had once held him captive.
+
+                    <br> <br> As they rose to their feet, the night sky stretched before them, full of endless possibilities. He knew the journey ahead would not be easy, but for the first time in a long time, he felt hopeful. With a new purpose ignited within him, he decided to follow this boy into the light, ready to embrace the adventures that awaited.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+
+        <main id="syah">
+            <article>
+                <h2 class="titleColumn">SYAH</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    Born to brilliant engineers specializing in destruction technology—missiles, bombs, and other fearsome weaponry—she grew up in a home filled with schematics and mechanical parts. For as long as she could remember, she was fascinated by her parents’ work, admiring the complexity and precision of the devices they designed. She spent her childhood watching them build and test machines meant to safeguard the empire, and the thrill of innovation soon captivated her completely.
+
+                    <br> <br>Her natural talent in engineering became apparent at an early age. By the time most children were learning basic arithmetic, she was already experimenting with designs, modifying her parents’ prototypes, and even enhancing the power of their inventions. Her parents were proud, viewing her as the prodigy who would take their work to the next level. The empire itself took notice of her abilities, praising her as a rising genius in the field of defense technology.
+
+                    <br> <br>As she matured, however, the complexity of her creations—and the harsh reality of their purpose—began to weigh on her. She attended demonstrations where her inventions were showcased not just for defense but for warfare. She watched as leaders spoke of “protection,” yet in their eyes, she glimpsed an eagerness for dominance, not safety. Slowly, it dawned on her that the empire valued her talent not for defense, but for destruction.
+
+                    <br> <br>The turning point came when she witnessed firsthand the devastation caused by her creations. Her work was supposed to protect, but instead, it left cities in ruins and families broken. The horror of her contribution to such suffering led her to question everything she had been taught. The empire’s promises of security felt hollow, their praise a cruel irony. The passion she once had for engineering now filled her with guilt and regret.
+
+                    <br> <br>Unable to reconcile her purpose with the harm she’d caused, she decided to leave it all behind. She shut down every project, locked away her research, and walked away from the life that had once defined her. Wandering the countryside, she was plagued by memories of the damage her inventions had wrought, each recollection another weight pressing down on her spirit. For the first time in her life, she felt truly lost.
+
+                    <br> <br>Then one day, she encountered a boy playing in a field, his laughter ringing through the air as he chased after a butterfly. He was full of joy, his eyes bright with wonder. She watched him, entranced by his innocence and freedom—qualities she hadn’t felt in years. He noticed her and waved her over, inviting her to join him. For the first time in a long while, she found herself smiling, sharing his simple joy.
+
+                    <br> <br>They spent hours together, talking and laughing. Eventually, she confided in him about her past, telling him of the weapons she had made and the regret that now haunted her. The boy listened intently, his face serious. When she finished, he said, “Maybe the problem isn’t your inventions. Maybe it’s how they were used. If you’re so talented, why not make things that truly protect people? Show them what your skills are really for.”
+
+                    <br> <br>His words struck her deeply, awakening a spark of hope she thought was lost. She realized she didn’t have to abandon her gift—she could use it to create instead of destroy. Inspired, she returned to her workshop, but this time, her focus was on defensive technology: shields, protective barriers, and rescue devices. She vowed to use her talents only for good, to create a world where her inventions would save lives, not take them.
+
+                    <br> <br>Every design she crafted from then on was a testament to her resolve. She poured herself into creating machines that could safeguard lives and fortify communities. And through it all, she remembered the boy who’d reignited her purpose. His words, his laughter, and his kindness stayed with her, guiding her as she transformed from a creator of destruction to a true protector.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+ 
+        <main id="isha">
+            <article>
+                <h2 class="titleColumn">ISHA JIRO</h2>
+                <h3 style="text-align: center;">CHARACTER'S BACKGROUND</h3>
+                <p>
+                    She grew up a quiet, introverted girl in a small, impoverished town. While others spent time outside, she retreated into the solitude of her room, immersing herself in the world of tech and mechanics. She found a kind of peace in the hum of machinery, in the intricate designs of gears and circuits that she could control and understand. People never quite understood her preference for solitude, but she had little desire for social interactions or crowded spaces. Instead, her fascination grew for building and innovating, slowly turning her room into a hidden workshop brimming with parts, tools, and half-built robots.
+
+                    <br> <br> Around her, she saw a town filled with people barely scraping by, many of whom had belongings they couldn’t afford to repair. Appliances, tools, and bicycles would be thrown away because no one had the resources to fix them. She noticed these discarded items, viewing them not as junk but as puzzles she could solve. Night after night, she salvaged what she could, transforming her home into a collection of broken odds and ends waiting for her touch. Through countless hours of trial and error, she became adept at fixing nearly anything.
+
+                    <br> <br> But she didn’t want credit for her work. The last thing she wanted was the attention of curious townsfolk. She worked under the cover of night, slipping repaired items back into their places. Sometimes, she would leave the fixed items at their doorsteps, other times she’d return them to the exact spot she’d found them. It became her quiet mission: repairing lives in small, subtle ways while remaining entirely unseen. She would often imagine the look on people’s faces when they found their belongings restored, yet she stayed hidden, finding satisfaction without seeking thanks or admiration.
+
+                    <br> <br> Her reputation spread as an anonymous benefactor, though no one could guess her identity. People called her the “Silent Mechanic,” imagining all kinds of stories about who could be behind the mysterious repairs. Some said it was a kindly spirit; others speculated it was a wandering craftsman. The townspeople admired the mystery, while she relished her anonymity. Hidden behind her machines and gadgets, she kept creating, finding comfort in her solitary work and in the quiet gratitude of those she helped.
+
+                    <br> <br> As her skills grew, so did the complexity of her creations. She began building small robots to help with her work, automated helpers to manage tasks she couldn’t do alone. Her inventions became companions in her self-imposed isolation, and with every new project, she honed her understanding of mechanics, pushing her abilities further. In her small world, surrounded by machines, she felt a sense of belonging. Each repaired item, each small gesture, became her way of contributing to the community without needing to interact with it directly.
+
+                    <br> <br> There were days when she wondered what it would be like to connect with people, to share her ideas and creations openly. Yet the thought of social gatherings or attention filled her with dread. She preferred to let her actions speak for her, finding satisfaction in remaining invisible. She saw her work as a quiet rebellion against the harshness of life, a way to give people a small reprieve from hardship while preserving her need for solitude.
+
+                    <br> <br> Over time, her work transformed into more than a pastime—it became a purpose. Her silent acts of kindness brought her a sense of fulfillment, creating a life where her talents weren’t just a personal refuge but a gift to others. Hidden behind layers of metal and circuitry, she found her own form of heroism: helping her town in ways they’d never see, knowing her repairs brought a bit of hope to those around her, one hidden act at a time.
+
+                    <br> <br> One evening, she heard a commotion at the back of her house. Stepping outside, she found a boy, cheerful and carefree, surrounded by her homemade robots. He was laughing, interacting with them as though they were alive. When he noticed her, his eyes lit up. “You’re amazing! These are incredible!” he said, clearly impressed. She felt a strange warmth from his open admiration—something she hadn’t expected.
+
+                    <br> <br> He then asked, “Why don’t you let people know it’s you? You’re helping everyone; it’s a good thing, right?” She hesitated, but he continued, “I’d love to help people like you do.”
+
+                    <br> <br> The sincerity in his words broke through her guarded heart, and for the first time, she felt understood. Seeing his eagerness, she decided to share a bit of her world with him. “Would you like to learn?” she asked softly. His enthusiastic nod sparked a connection she hadn’t known she was missing.
+
+                    <br> <br> From then on, she began to teach him about tech, explaining simple concepts, showing him the inner workings of her creations. In his company, her world seemed brighter, and her solitude softened into a friendship that grew, one lesson and laugh at a time.
+                </p>
+            </article>
+        </main>
+
+        <main>
+            <div class="chapter-buttons">
+                <button onclick="window.location.href='#headtop'">Go To The Top</button>
+                <button onclick="window.location.href='Story.html'">Stories Page</button>
+            </div>
+        </main>
+        
+        <!-- FEEDBACK -->
+
+        <main>
+            <div class="feedback-section">
+                <h2>Feedback</h2>
+                <form id="feedback-form">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="name">Name:</label>
+                            </td>
+                            <td>
+                                <input type="text" id="name" name="name" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="comment">Comment:</label>
+                            </td>
+                            <td>
+                                <textarea id="comment" name="comment" rows="4" required></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="rating">Rating:</label>
+                            </td>
+                            <td>
+                                <select id="rating" name="rating" required>
+                                    <option value="5">5 stars</option>
+                                    <option value="4">4 stars</option>
+                                    <option value="3">3 stars</option>
+                                    <option value="2">2 stars</option>
+                                    <option value="1">1 star</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Fantasy Novel Blog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYX</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffb74d;
+        }
+
+        #headtop a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: #333;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        nav a, .dropdown {
+            color: #ffb74d;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: medium;
+            position: relative;
+        }
+        nav a:hover, .dropdown:hover  {
+            text-decoration: underline;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            width: auto;
+            z-index: 1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #chapter1 img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .dropdown-content a {
+            color: #ffb74d;
+            padding: 10px 16px; /* Adjusted padding */
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-radius: 8px;
+            line-height: 1.4; /* Adjusted line height */
+            font-size: medium;
+        }
+        .dropdown-content a:hover {
+            background-color: #727272;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 6px;
+            margin-right: 6px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 6px 10px;
+            background-color: #ffb74d;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .titleColumn {
+            color: #ffcc80;
+            text-align: center;
+        }
+
+        main {
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .main1 {
+            background: #333;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            color: #ffb74d;
+            height: 100%;
+            width: 100%;
+            margin: 0% ;
+        }
+
+        .main1 h1 {
+            text-align: center;
+            margin: 0%;
+        }
+        
+        .main a {
+            text-decoration: none;
+            color: #ffb74d;
+        }
+
+        article {
+        }
+        
+        article h2 {
+            color: #ffcc80;
+        }
+        article p {
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1f1f1f;
+            color: #b0b0b0;
+        }
+        
+        button, button a {
+            background-color: #ffb74d;
+            color: black;
+            text-decoration: none;
+            width: 100%;
+            padding: 2%;
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                margin: 10px auto;
+            }
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            aside, main, .right {
+                margin: 10px;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="headtop"><a href="Home.html">SKYX</a></h1>
+    </header>
+
+    <nav>
+        <div class="nav-left">
+            <table>
+                <tr>
+                    <td>
+                        <a href="Home.html">Home</a>
+                    </td>
+                    <td>
+                        <a href="Story.html">Stories</a>
+                    </td>
+                    <td>
+                        <a href="Music.html">Music</a>
+                    </td>
+                    <td>
+                        <a href="About Us.html">About Us</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- FANTASY STORIES -->
+        
+        <main>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <main class="main1">
+                                        <article id="chapter1">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h1>FANTASY STORIES</h1>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </article>
+                                    </main>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            Welcome to our enchanting realm of fantasy stories, where imagination knows no bounds! Here, you'll embark on thrilling adventures filled with mythical creatures, brave heroes, and spellbinding magic. Each tale invites you to explore uncharted worlds, where the impossible becomes possible and every page turns into a portal to the extraordinary. Prepare to lose yourself in captivating narratives that spark wonder and ignite your creativity—your next great escape awaits!
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button>
+                            <a href="Story.html">FANTASY STORIES</a>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </main>
+        
+        <!-- MUSICAL SANCTUARY -->
+
+        <main>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <main class="main1">
+                                        <article id="chapter1">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h1>MUSICAL SANCTUARY</h1>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </article>
+                                    </main>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            Welcome to our musical sanctuary, where the magic of our fantasy stories comes to life through original songs! Dive into a symphonic adventure, where each melody and lyric is inspired by the enchanting tales you've come to love. From epic ballads that tell the stories of brave heroes to whimsical tunes that capture the essence of mythical realms, our music page is a treasure trove of soundscapes waiting to be explored. Let the rhythm carry you away and immerse yourself in a world where every note is a brushstroke on the canvas of imagination!
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button>
+                            <a href="Music.html">MUSICAL SANCTUARY</a>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2024 Skyx Production. All rights reserved.
+    </footer>
+
+</body>
+</html>
